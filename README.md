@@ -1,4 +1,4 @@
-# Optimisation Project for Battery Sizing for a Given Load and Renewable Supply
+# Optimisation Model for Battery Sizing for a Given Load and Renewable Supply
 
 ## Context
 A consumer with a given load profile and renewable production targets 100% self-reliance. A single battery is used to meet this storage requirement, with costs for the power (MW) and capacity (MWh) components. The battery is sized to reduce cost while meeting demand. Renewable curtailment is not considered, and it is assumed to be sold to the grid. 
@@ -22,7 +22,7 @@ Excess renewables production has no value
 
 Scenario Management
 * Data connectivity is currently manual, the user needs to download data from external sources and create their own connection. Results are also similarly not stored and managed.
-* Data input should be connected to external sources that provide relevant data - such as the API for ENTSO-E for demand profiles.
+* Data input should be connected to external sources that provide relevant data - such as https://data.open-power-system-data.org/time_series/.
 * Sensitivity analysis of key metrics should be automated in the model run
 * Results should be stored in a standardised structure and a simple dashboard built to enable scenario comparison.
 * Model and results are currently stored within the same notebook - a future version should separate code into modules:
