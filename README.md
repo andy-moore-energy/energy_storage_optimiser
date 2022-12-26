@@ -19,7 +19,7 @@ An implementation of the object-oriented version is here: `battery/battery_solve
 5. Plot the results
 
 Standardised results take this form per scenario:
-![Alt text](https://github.com/abmoore92/energy_storage_optimiser/docs/example_plot.png?raw=true "Example Results")
+![Alt text](https://github.com/abmoore92/energy_storage_optimiser/blob/main/docs/example_plot.png?raw=true "Example Results")
 
 ## Setup
 Poetry is used as a package manager, the poetry.lock file contains information on which packages are required
