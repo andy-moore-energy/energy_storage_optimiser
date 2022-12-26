@@ -7,7 +7,27 @@ The word "battery" is used throughout but refers to any given storage technology
 
 The target use case for this model, and therefore scenario design, is the compare the cost of different storages by researching and implementing different costs for the power (MW) and capacity (MWh) values.
 
-### Limitations and Extensions
+## Usage
+Two versions of the model are available, either built in-line, or object oriented.
+The in-line code is stored run here: `battery/battery_solver_inplace.ipynb`
+An implementation of the object-oriented version is here: `battery/battery_solver_modular.ipynb`
+
+1. Select input renewables datasets
+2. Select load amount
+3. Choose cost for battery power and capacity
+4. Run the model
+5. Plot the results
+
+Standardised results take this form per scenario:
+![Alt text](https://github.com/abmoore92/energy_storage_optimiser/docs/example_plot.png?raw=true "Example Results")
+
+## Setup
+Poetry is used as a package manager, the poetry.lock file contains information on which packages are required
+https://python-poetry.org/docs/
+Install using:
+`poetry install`
+
+## Limitations and Extensions
 Cost
 * Cost is currently capex only, this is a limited view as opex can differ between power and capacity components of a project.
 
@@ -25,20 +45,6 @@ Scenario Management
 * Data input should be connected to external sources that provide relevant data - such as https://data.open-power-system-data.org/time_series/.
 * Sensitivity analysis of key metrics should be automated in the model run
 * Results should be stored in a standardised structure and a simple dashboard built to enable scenario comparison.
-* Model and results are currently stored within the same notebook - a future version should separate code into modules:
-    1. Data ingest
-    2. Model creation and simulation
-    3. Data output
-    4. Analysis and graphs - dashboard of key results
-
-## Setup
-Poetry is used as a package manager, the poetry.lock file contains information on which packages are required
-https://python-poetry.org/docs/
-Install using:
-`poetry install`
-
-## Usage
-The code is stored in the jupyter notebook `battery/linear_solver.ipynb`
 
 ## Licensing
 Data from renewables.ninja is used in this example, which is under a non-commercial license. Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)# energy_storage_optimiser
