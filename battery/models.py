@@ -1,3 +1,4 @@
+import datetime
 from dataclasses import dataclass
 from typing import Dict, List
 
@@ -59,6 +60,7 @@ class Storage:
 @dataclass
 class ScenarioInputs:
     name: str
+    start_date: datetime.datetime
     time_index: List[int]
     renewables: Renewables
     load: Load
@@ -84,12 +86,14 @@ class ModelVars:
     time: ModelVarsTimeDependent
 
 
-class Model:
+class ScenarioManager:
     vars: ModelVars
     lpmodel: LpProblem
 
     def __init__(self, inputs: ScenarioInputs) -> None:
         self.inputs = inputs
+        self.name = self.inputs.name
+        self.solved_status = False
 
         self.setup_linear_problem()
         self.define_endogenous_variables()
@@ -122,10 +126,10 @@ class Model:
                     name="storagelevel", indices=self.inputs.time_index, lowBound=0
                 ),
                 charge=LpVariable.dicts(
-                    name="storagelevel", indices=self.inputs.time_index, lowBound=0
+                    name="charge", indices=self.inputs.time_index, lowBound=0
                 ),
                 discharge=LpVariable.dicts(
-                    name="storagelevel", indices=self.inputs.time_index, lowBound=0
+                    name="discharge", indices=self.inputs.time_index, lowBound=0
                 ),
             ),
         )
@@ -168,6 +172,15 @@ class Model:
                 f"storage level is determined by charge and discharge, and efficiency (t={t})",
             )
 
+            # Is this constraint necessary? The level variable has a lower bound of 0 already
+            available_energy_constraint = (
+                self.vars.time.level[t] >= self.vars.time.discharge[t]
+            )
+            self.lpmodel += (
+                available_energy_constraint,
+                f"cannot dispatch more than available energy (t={t})",
+            )
+
         for t in self.inputs.time_index:
             self.lpmodel += (
                 self.vars.time.charge[t] <= self.vars.scalar.power,
@@ -191,6 +204,8 @@ class Model:
 
     def solve(self, **kwargs) -> None:
         self.lpmodel.solve(**kwargs)
+        if self.lpmodel.status == 1:
+            self.solved_status = True
 
     def verify_solve(self) -> None:
         if self.lpmodel.status != 1:
