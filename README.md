@@ -1,7 +1,9 @@
-# Optimisation Model for Battery Sizing for a Given Load and Renewable Supply
+# Find the optimal battery size for an industrial site
 
 ## Context
-A consumer with a given load profile and renewable production targets 100% self-reliance. A single battery is used to meet this storage requirement, with costs for the power (MW) and capacity (MWh) components. The battery is sized to reduce cost while meeting demand. Renewable curtailment is not considered, and it is assumed to be sold to the grid. 
+A consumer is targeting 100% self-reliance on solar and wind energy and wants to buy a battery to shift generation when it needs to be used.
+
+The model find the cheapest size and duration for the battery (MW and MWh sizes) based on input costs, reneable supply, and demand.
 
 The word "battery" is used throughout but refers to any given storage technology - this could be compressed air, hydrogen, or any other.
 
